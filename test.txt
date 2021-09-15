@@ -1,5 +1,9 @@
 ทดสอบ Git
 
 
-git config -–global user.name "[user name]"
-git config -–global user.email "[email address]" 
+git config -–global user.name "poppr9"
+git config -–global user.email "poppr9@gmail.com" 
+
+
+git config --global user.name "poppr9"
+git config --global user.email "poppr9@gmail.com"
