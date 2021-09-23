@@ -33,11 +33,13 @@ def main(request=None):
                 action = request.args.get('action')
                 nameId = request.args.get('nameId')
                 categoryId = request.args.get('categoryId')  
+                qty = request.args.get('qty')  
             elif request_json and 'username' in request_json:
                 username = request_json['username']
                 action = request_json['action']
                 nameId = request_json['nameId']
                 categoryId = request_json['categoryId'] 
+                qty = request_json['qty'] 
             else:
                 return {"message": 'error', "username": "Not found !! "}
 
@@ -131,8 +133,7 @@ def mainProduct(user, categoryId=None, nameId=None):
     sheetName = 'products'
     url = 'https://docs.google.com/spreadsheets/d/{0}/gviz/tq?tqx=out:csv&sheet={1}'.format(
         googleSheetId, sheetName)
-    df = pd.read_csv(url)
-    df['price'] = df['price'].str.replace(',', '').astype(float)
+    df = pd.read_csv(url) 
 
     if nameId is not None:
         df = df.loc[df['name'] == str(nameId)]
@@ -140,7 +141,7 @@ def mainProduct(user, categoryId=None, nameId=None):
     if categoryId is not None:
         df = df.loc[df['category'] == str(categoryId)]
     else:
-        df = df.loc[df['category'] == 'เดรส']
+        df = df.loc[df['category'] == 'ทะเลเผา']
 
     json_body = []
 
@@ -241,9 +242,17 @@ def mainProductDetail(user, nameId=None):
 def test():
     nameId = 'เซต A'
     qty = 3
-    user = check_user(username='orangel')
-    res = getProductDetail_total(user=user,nameId=nameId,qty=qty) 
-    print(res)
+    user = check_user(username='pt')
+    # res = mainProduct(user=user, categoryId='ทะเลเผา', nameId=None)
+    # res = mainCategory(user, nameId=None)
+
+    contents = {
+                "type": "carousel",
+                # "contents": mainProduct(user=user, categoryId='ทะเลเผา', nameId=None)
+                "contents": mainCategory(user=user, nameId=None)
+            }
+    # res = getProductDetail_total(user=user,nameId=nameId,qty=qty) 
+    print(json.dumps(contents))
 
 
  

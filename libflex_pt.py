@@ -152,22 +152,7 @@ def flexProduct(data):
                                             "type": "text",
                                             "text": str(data['description']),
                                             "color": "#FFFAFA"
-                                        },
-                                        {
-                                            "type": "text",
-                                            "text": "จำนวน " +str(data['stock'])+ " ชิ้น",
-                                            "color": "#FFFAFA"
-                                        },
-                                        {
-                                            "type": "text",
-                                            "text": str(data['Color']),
-                                            "color": "#FFFAFA"
-                                        },
-                                        {
-                                            "type": "text",
-                                            "text": str(data['Size']),
-                                            "color": "#FFFAFA"
-                                        }
+                                        } 
                                     ]
                                 },
                                 {
