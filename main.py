@@ -56,6 +56,9 @@ def main(request=None):
                 elif(action == 'productDetailTotal'):
                     response = getProductDetail_total(user, nameId=nameId,qty=qty)
                     return response  
+                elif(action == 'productAdd'):
+                    response = productAdd(user, nameId=nameId,qty=qty)
+                    return response  
                 
                 else:
                     contents = {
@@ -198,6 +201,41 @@ def getProductDetail_total(user, nameId=None,qty=1):
             'qty' : qty,
             'total' : int(df_json[0]['price'])*int(qty),
         } 
+        return res
+    else: 
+        return False
+
+
+def productAdd(user, nameId=None,qty=1):
+    googleSheetId = user['googleSheetId'] 
+    sheetName = 'products'
+    url = 'https://docs.google.com/spreadsheets/d/{0}/gviz/tq?tqx=out:csv&sheet={1}'.format(
+        googleSheetId, sheetName)
+    df = pd.read_csv(url)
+
+    nameId = "สั่งซื้อ : ข้าวผัด"
+    split_name = nameId.split(': ')
+
+    try:
+        products_name = split_name[1]
+    except IndexError:
+        products_name = split_name[0]
+
+    if nameId is not None:
+        df = df.loc[df['name'] == str(products_name)] 
+    if not df.empty:
+        # df.to_json(orient='split')
+        df_json_string = df.to_json(orient='records')
+        df_json = json.loads(df_json_string)
+        res =  {
+            'name' : df_json[0]['name'],
+            'price' : df_json[0]['price'],
+            'qty' : qty,
+            'total' : int(df_json[0]['price'])*int(qty),
+        } 
+
+
+        ### ทำ API ไปบันทึกที่ google sheets
         return res
     else: 
         return False
