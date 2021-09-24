@@ -258,6 +258,182 @@ def flexProduct(data):
     }
     return content
 
+
+def flexCart_product_whitdel(data):
+    content = {
+        "type": "box",
+                "layout": "horizontal",
+                "contents": [
+                    {
+                        "type": "text",
+                        "text": str(data['name']),
+                        "size": "sm",
+                        "color": "#555555",
+                        "flex": 4
+                    },
+                    {
+                        "type": "text",
+                        "text": "x" + str(data['qty']),
+                        "size": "sm",
+                        "color": "#111111",
+                        "align": "end",
+                        "flex": 1
+                    },
+                    {
+                        "type": "text",
+                        "text": str(f"{data['price']:,}"),
+                        "size": "sm",
+                        "color": "#111111",
+                        "align": "end",
+                        "flex": 1
+                    },
+                    {
+                        "type": "box",
+                        "layout": "baseline",
+                        "contents": [
+                            {
+                                "type": "icon",
+                                "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/restaurant_regular_32.png"
+                            }
+                        ],
+                        "alignItems": "center",
+                        "justifyContent": "center",
+                        "action": {
+                            "type": "message",
+                            "label": "action",
+                            "text": "ลบสินค้า : " + str(data['name']),
+                        }
+                    }
+                ]
+    }
+    return content
+
+def flexCart_product(data):
+    content = {
+        "type": "box",
+                "layout": "horizontal",
+                "contents": [
+                    {
+                        "type": "text",
+                        "text": str(data['name']),
+                        "size": "sm",
+                        "color": "#555555",
+                        "flex": 4
+                    },
+                    {
+                        "type": "text",
+                        "text": "x" + str(data['qty']),
+                        "size": "sm",
+                        "color": "#111111",
+                        "align": "end",
+                        "flex": 1
+                    },
+                    {
+                        "type": "text",
+                        "text": str(f"{data['price']:,}"),
+                        "size": "sm",
+                        "color": "#111111",
+                        "align": "end",
+                        "flex": 1
+                    } 
+                ]
+    }
+    return content
+
+
+
+
+
+def flexCart(data, detail):
+    content = {
+        "type": "bubble",
+        "size": "giga",
+        "body": {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+                {
+                    "type": "text",
+                    "text": "ตระกร้าสินค้า",
+                    "weight": "bold",
+                    "color": "#1DB446",
+                    "size": "sm"
+                },
+                {
+                    "type": "text",
+                    "text": str(data['date']),
+                    "size": "xs",
+                    "color": "#aaaaaa",
+                    "wrap": True
+                },
+                {
+                    "type": "separator",
+                    "margin": "xxl"
+                },
+                {
+                    "type": "box",
+                    "layout": "vertical",
+                    "margin": "xxl",
+                    "spacing": "sm",
+                    "contents": detail
+                },
+                {
+                    "type": "separator",
+                    "margin": "xl"
+                },
+                {
+                    "type": "box",
+                    "layout": "vertical",
+                    "margin": "xs",
+                    "spacing": "xs",
+                    "contents": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "margin": "xxl",
+                            "contents": [
+                                {
+                                    "type": "text",
+                                    "text": "ITEMS",
+                                    "size": "sm",
+                                    "color": "#555555"
+                                },
+                                {
+                                    "type": "text",
+                                    "text": str(data['items']),
+                                    "size": "sm",
+                                    "color": "#111111",
+                                    "align": "end"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "contents": [
+                                {
+                                    "type": "text",
+                                    "text": "total",
+                                    "size": "sm",
+                                    "color": "#555555"
+                                },
+                                {
+                                    "type": "text",
+                                    "text":  str(f"{data['total']:,}"),
+                                    "size": "sm",
+                                    "color": "#111111",
+                                    "align": "end"
+                                }
+                            ]
+                        }
+                    ]
+                } 
+            ]
+        }
+    }
+    return content
+
+
 def flexResult(data):
     content ={
         "type": "bubble",
