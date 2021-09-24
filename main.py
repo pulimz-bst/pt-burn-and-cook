@@ -90,7 +90,7 @@ def main(request=None):
 
 def mainCategory(user, nameId=None):
     googleSheetId = user['googleSheetId']
-    from libflex_pt import flexCategory, flexProduct
+    from libflex_pt import flexCategory, flexProduct, flexResult
 
     sheetName = 'category'
 
@@ -132,7 +132,7 @@ def mainCategory(user, nameId=None):
 
 def mainProduct(user, categoryId=None, nameId=None):
     googleSheetId = user['googleSheetId']
-    from libflex_pt import flexCategory, flexProduct 
+    from libflex_pt import flexCategory, flexProduct, flexResult 
     sheetName = 'products'
     url = 'https://docs.google.com/spreadsheets/d/{0}/gviz/tq?tqx=out:csv&sheet={1}'.format(
         googleSheetId, sheetName)
@@ -152,6 +152,51 @@ def mainProduct(user, categoryId=None, nameId=None):
         for index, row in df.iterrows():
             # print(row['name'], row['images'], row['price'])
             content = flexProduct(data=row)
+            json_body.append(content)
+    else:
+        content = {
+            "type": "bubble",
+            "body": {
+                "type": "box",
+                "layout": "vertical",
+                "spacing": "md",
+                "contents": [
+                    {
+                        "type": "text",
+                        "text": "ไม่พบการค้นหา",
+                        "wrap": True,
+                        "weight": "bold",
+                        "gravity": "center",
+                        "size": "xl"
+                    }
+                ]
+            }
+        }
+        json_body.append(content)
+    return json_body
+
+def mainResult(user, categoryId=None, nameId=None):
+    googleSheetId = user['googleSheetId']
+    from libflex_pt import flexCategory, flexProduct, flexResult 
+    sheetName = 'products'
+    url = 'https://docs.google.com/spreadsheets/d/{0}/gviz/tq?tqx=out:csv&sheet={1}'.format(
+        googleSheetId, sheetName)
+    df = pd.read_csv(url) 
+
+    if nameId is not None:
+        df = df.loc[df['name'] == str(nameId)]
+
+    if categoryId is not None:
+        df = df.loc[df['category'] == str(categoryId)]
+    else:
+        df = df.loc[df['category'] == 'ทะเลเผา']
+
+    json_body = []
+
+    if not df.empty:
+        for index, row in df.iterrows():
+            # print(row['name'], row['images'], row['price'])
+            content = flexResult(data=row)
             json_body.append(content)
     else:
         content = {
