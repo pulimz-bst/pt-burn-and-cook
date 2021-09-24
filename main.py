@@ -68,12 +68,10 @@ def main(request=None):
                     return response  
                 elif(action == 'productCart'):
                     response = productCart(user=user,lineId=lineId)
-                    return response  
-
+                    return response   
                 elif(action == 'productCheckout'):
                     response = productCheckout(user=user,lineId=lineId)
-                    return response  
-                
+                    return response   
                 else:
                     contents = {
                         "type": "carousel",
