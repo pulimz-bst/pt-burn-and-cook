@@ -116,7 +116,7 @@ def mainCategory(user, nameId=None):
     json_body = []
     if not df.empty:
         for index, row in df.iterrows():
-            # print(row['name'], row['images'], row['price'])
+            print(row['images'], row['name'])
             content = flexCategory(data=row)
             json_body.append(content)
     else:
@@ -216,6 +216,7 @@ def productCart(user, lineId):
         data['total'] = total
         data['items'] = items
         data['date'] = today
+        data['lineId'] = lineId
         content = flexCart(data=data, detail=detail)
         json_body.append(content)
     else:
@@ -269,6 +270,7 @@ def productCheckout(user, lineId):
         data['total'] = total
         data['items'] = items
         data['date'] = today
+        data['lineId'] = lineId
         content = flexCart(data=data, detail=detail)
         json_body.append(content)
     else:
@@ -324,11 +326,12 @@ def productCart(user, lineId):
         for index, row in df.iterrows():
             content_product = flexCart_product_whitdel(data=row)
             detail.append(content_product)
-            total += row['price']
+            total += row['total']
             items += int(row['qty'])
         data['total'] = total
         data['items'] = items
         data['date'] = today
+        data['lineId'] = lineId
         content = flexCart(data=data, detail=detail)
         json_body.append(content)
     else:
@@ -483,32 +486,32 @@ def test():
     # res = mainCategory(user, nameId=None)
 
 
-    lineId = "Jo"
-    nameId = "เนื้อย่าง"
+    lineId = "tong"
+    nameId = "กุ้งเผา"
     qty = 3 
     response = productAdd(user, lineId=lineId,nameId=nameId,qty=qty)
     print(response)
 
 
-    # lineId = "Jo"
-    # nameId = "เนื้อย่าง" 
+    # lineId = "tong"
+    # nameId = "กุ้งเผา" 
     # response = productDelete(user, lineId=lineId,nameId=nameId)
     # print(response)
 
 
-    lineId = "Jo" 
-    response = productCheckout(user, lineId)
+    lineId = "tong" 
+    response = productCart(user, lineId)
     # print(response)
     print(json.dumps(response))
 
 
-    # contents = {
-    #             "type": "carousel",
-    #             # "contents": mainProduct(user=user, categoryId='ทะเลเผา', nameId=None)
-    #             "contents": mainCategory(user=user, nameId=None)
-    #         }
-    # # res = getProductDetail_total(user=user,nameId=nameId,qty=qty) 
-    # print(json.dumps(contents))
+    contents = {
+                "type": "carousel",
+                # "contents": mainProduct(user=user, categoryId='ทะเลเผา', nameId=None)
+                # "contents": mainCategory(user=user, nameId=None)
+            }
+    res = getProductDetail_total(user=user,nameId=nameId,qty=qty) 
+    print(json.dumps(contents))
 
 
  

@@ -157,7 +157,7 @@ def flexProduct(data):
                                 "contents": [
                                     {
                                         "type": "text",
-                                        "text": str(data['Ename']),
+                                        "text": str(data['description']),
                                         "color": "#FF764B",
                                         "size": "sm",
                                         "flex": 0,
@@ -200,7 +200,7 @@ def flexProduct(data):
                                         "gravity": "center",
                                         "position": "relative",
                                         "height": "sm",
-                                        "offsetBottom": "0px"
+                                        "offsetBottom": "5px"
                                     }
                                 ],
                                 "borderColor": "#FF764B",
@@ -268,22 +268,22 @@ def flexCart_product_whitdel(data):
                         "type": "text",
                         "text": str(data['name']),
                         "size": "sm",
-                        "color": "#555555",
+                        "color": "#ffffff",
                         "flex": 4
                     },
                     {
                         "type": "text",
                         "text": "x" + str(data['qty']),
                         "size": "sm",
-                        "color": "#111111",
+                        "color": "#FF764B",
                         "align": "end",
                         "flex": 1
                     },
                     {
                         "type": "text",
-                        "text": str(f"{data['price']:,}"),
+                        "text": str(f"{data['total']:,}"),
                         "size": "sm",
-                        "color": "#111111",
+                        "color": "#FF764B",
                         "align": "end",
                         "flex": 1
                     },
@@ -293,7 +293,7 @@ def flexCart_product_whitdel(data):
                         "contents": [
                             {
                                 "type": "icon",
-                                "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/restaurant_regular_32.png"
+                                "url": "https://scontent.xx.fbcdn.net/v/t1.15752-9/p206x206/61625382_450342892381616_9025235832461590528_n.png?_nc_cat=111&ccb=1-5&_nc_sid=aee45a&_nc_eui2=AeGyi9aMRZhhuZ_UZ_EDcviZFMM477K_jaMUwzjvsr-No1wT5WRxZvuORAr5CSyKJrY61yvZ_Gn6UieXCw97wJO4&_nc_ohc=tzbloonPJu8AX9FmBfd&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=cad2d369442678173d0e10406f7724a6&oe=61755B2A"
                             }
                         ],
                         "alignItems": "center",
@@ -308,6 +308,7 @@ def flexCart_product_whitdel(data):
     }
     return content
 
+
 def flexCart_product(data):
     content = {
         "type": "box",
@@ -317,31 +318,28 @@ def flexCart_product(data):
                         "type": "text",
                         "text": str(data['name']),
                         "size": "sm",
-                        "color": "#555555",
+                        "color": "#ffffff",
                         "flex": 4
                     },
                     {
                         "type": "text",
                         "text": "x" + str(data['qty']),
                         "size": "sm",
-                        "color": "#111111",
+                        "color": "#FF764B",
                         "align": "end",
                         "flex": 1
                     },
                     {
                         "type": "text",
-                        "text": str(f"{data['price']:,}"),
+                        "text": str(f"{data['total']:,}"),
                         "size": "sm",
-                        "color": "#111111",
+                        "color": "#FF764B",
                         "align": "end",
                         "flex": 1
-                    } 
+                    }
                 ]
     }
     return content
-
-
-
 
 
 def flexCart(data, detail):
@@ -356,19 +354,22 @@ def flexCart(data, detail):
                     "type": "text",
                     "text": "ตระกร้าสินค้า",
                     "weight": "bold",
-                    "color": "#1DB446",
+                    "color": "#FF764B",
                     "size": "sm"
                 },
                 {
                     "type": "text",
                     "text": str(data['date']),
                     "size": "xs",
-                    "color": "#aaaaaa",
+                    "color": "#ffffff",
                     "wrap": True
                 },
                 {
-                    "type": "separator",
-                    "margin": "xxl"
+                    "type": "text",
+                    "text": str(data['lineId']),
+                    "size": "xs",
+                    "color": "#1DB446",
+                    "wrap": True
                 },
                 {
                     "type": "box",
@@ -379,7 +380,8 @@ def flexCart(data, detail):
                 },
                 {
                     "type": "separator",
-                    "margin": "xl"
+                    "margin": "xl",
+                    "color": "#FF764B"
                 },
                 {
                     "type": "box",
@@ -396,13 +398,13 @@ def flexCart(data, detail):
                                     "type": "text",
                                     "text": "ITEMS",
                                     "size": "sm",
-                                    "color": "#555555"
+                                    "color": "#ffffff"
                                 },
                                 {
                                     "type": "text",
                                     "text": str(data['items']),
                                     "size": "sm",
-                                    "color": "#111111",
+                                    "color": "#FF764B",
                                     "align": "end"
                                 }
                             ]
@@ -415,27 +417,50 @@ def flexCart(data, detail):
                                     "type": "text",
                                     "text": "total",
                                     "size": "sm",
-                                    "color": "#555555"
+                                    "color": "#ffffff"
                                 },
                                 {
                                     "type": "text",
                                     "text":  str(f"{data['total']:,}"),
                                     "size": "sm",
-                                    "color": "#111111",
+                                    "color": "#FF764B",
                                     "align": "end"
                                 }
                             ]
                         }
                     ]
-                } 
-            ]
+                },
+                {
+                    "type": "box",
+                    "layout": "baseline",
+                    "margin": "md",
+                    "contents": [
+                        {
+                            "type": "icon",
+                            "url": "https://scontent.xx.fbcdn.net/v/t1.15752-9/p206x206/242393089_4008742272564557_8092279073413223390_n.png?_nc_cat=108&ccb=1-5&_nc_sid=aee45a&_nc_eui2=AeFj6ZUJ00D3tftsNecwiJghgiU0dGZWV-WCJTR0ZlZX5dSnsnrXKgpn2MYBBiFmCTUHXfz1bpdKFkDprQ8oGKXk&_nc_ohc=TrmXnuApnzUAX-gkbmT&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=d48b43c709ac0ea664c9d04312973549&oe=616F890F",
+                            "size": "4xl",
+                            "position": "relative"
+                        }
+                    ],
+                    "position": "absolute",
+                    "width": "200px",
+                    "height": "50px",
+                    "backgroundColor": "#271F1F",
+                    "borderWidth": "2px",
+                    "borderColor": "#FF764B",
+                    "cornerRadius": "60px",
+                    "offsetStart": "220px",
+                    "offsetTop": "20px"
+                }
+            ],
+            "backgroundColor": "#271F1F"
         }
     }
     return content
 
 
 def flexResult(data):
-    content ={
+    content = {
         "type": "bubble",
         "body": {
             "type": "box",
@@ -604,4 +629,3 @@ def flexResult(data):
         }
     }
     return content
-
