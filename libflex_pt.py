@@ -52,9 +52,9 @@ def flexCategory(data):
                                     {
                                         "type": "button",
                                         "action": {
-                                            "type": "uri",
+                                            "type": "message",
                                             "label": "ดูเมนู",
-                                            "uri": "http://linecorp.com/"
+                                            "text": str(data['name']),
                                         },
                                         "color": "#ebebeb",
                                         "gravity": "center",
@@ -192,9 +192,9 @@ def flexProduct(data):
                                     {
                                         "type": "button",
                                         "action": {
-                                            "type": "uri",
-                                            "label": "เพิ่มลงตระกร้า",
-                                            "uri": "http://linecorp.com/"
+                                            "type": "message",
+                                            "label": "สั่งอาหาร",
+                                            "text": str(data['name']),
                                         },
                                         "color": "#ebebeb",
                                         "gravity": "center",
@@ -629,3 +629,5 @@ def flexResult(data):
         }
     }
     return content
+
+

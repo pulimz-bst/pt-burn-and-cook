@@ -162,7 +162,7 @@ def mainProduct(user, categoryId=None, nameId=None):
 
     if not df.empty:
         for index, row in df.iterrows():
-            # print(row['name'], row['images'], row['price'])
+            print(row['name'], row['images'], row['price'])
             content = flexProduct(data=row)
             json_body.append(content)
     else:
@@ -188,59 +188,6 @@ def mainProduct(user, categoryId=None, nameId=None):
     return json_body
 
 
-def productCart(user, lineId):
-    today = date.today()
-    today = today.strftime("%Y-%m-%d")
-    googleSheetId = user['googleSheetId'] 
-    sheetName = 'orders'
-    url = 'https://docs.google.com/spreadsheets/d/{0}/gviz/tq?tqx=out:csv&sheet={1}'.format(
-        googleSheetId, sheetName)
-    df = pd.read_csv(url)  
-
-    if lineId is not None:
-        df = df.loc[df['lineId'] == str(lineId)]  
-
-    from libflex_pt import flexCart, flexCart_product_whitdel 
-        
-    if not df.empty:
-        detail = []
-        data = {}
-        total = 0
-        items = 0
-        json_body = []
-        for index, row in df.iterrows():
-            content_product = flexCart_product_whitdel(data=row)
-            detail.append(content_product)
-            total += row['price']
-            items += int(row['qty'])
-        data['total'] = total
-        data['items'] = items
-        data['date'] = today
-        data['lineId'] = lineId
-        content = flexCart(data=data, detail=detail)
-        json_body.append(content)
-    else:
-        json_body = []
-        content = {
-            "type": "bubble",
-            "body": {
-                "type": "box",
-                "layout": "vertical",
-                "spacing": "md",
-                "contents": [
-                    {
-                        "type": "text",
-                        "text": "ไม่พบการค้นหา",
-                        "wrap": True,
-                        "weight": "bold",
-                        "gravity": "center",
-                        "size": "xl"
-                    }
-                ]
-            }
-        }
-        json_body.append(content)
-    return json_body
 
 def productCheckout(user, lineId):
     today = date.today()
@@ -505,13 +452,13 @@ def test():
     print(json.dumps(response))
 
 
-    contents = {
-                "type": "carousel",
-                # "contents": mainProduct(user=user, categoryId='ทะเลเผา', nameId=None)
-                # "contents": mainCategory(user=user, nameId=None)
-            }
-    res = getProductDetail_total(user=user,nameId=nameId,qty=qty) 
-    print(json.dumps(contents))
+    # # contents = {
+    #             "type": "carousel",
+    #             # "contents": mainProduct(user=user, categoryId='ทะเลเผา', nameId=None)
+    #             # "contents": mainCategory(user=user, nameId=None)
+    #         }
+    # res = getProductDetail_total(user=user,nameId=nameId,qty=qty) 
+    # print(json.dumps(contents))
 
 
  
