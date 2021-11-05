@@ -45,7 +45,7 @@ def check_user(username=None):
     else:
         return False
 
-@app.post("/checkout")
+@app.get("/checkout")
 async def productCheckout(data : productCart_request ): 
     user = check_user(username=data.user)
     if(user != False):
@@ -71,7 +71,7 @@ async def productCheckout(data : productCart_request ):
     else:
         return {"message": 'error', "User": data.user + "Not found !! "}
 
-@app.post("/productCart")
+@app.get("/productCart")
 async def productCart(data : productCart_request ): 
     user = check_user(username=data.user)
     if(user != False):
