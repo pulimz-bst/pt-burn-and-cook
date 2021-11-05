@@ -45,6 +45,8 @@ def check_user(username=None):
     else:
         return False
 
+
+
 @app.get("/checkout")
 async def productCheckout(data : productCart_request ): 
     user = check_user(username=data.user)
