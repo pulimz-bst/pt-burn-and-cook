@@ -51,8 +51,11 @@ def check_user(username=None):
 async def productCheckout(user: str, lineId: str ): 
     user = check_user(username=user)
     if(user != False):
-        try: 
-            contents =  productCheckout(user,lineId) 
+        try:  
+            contents = {
+                    "type": "carousel",
+                    "contents": productCheckout(user,lineId) 
+            } 
             jsonFlex = {"response_type": "object"}
             jsonFlex["line_payload"] = [
                 {
@@ -76,8 +79,11 @@ async def productCheckout(user: str, lineId: str ):
 async def productCart(user: str, lineId: str ): 
     user = check_user(username=user)
     if(user != False):
-        try: 
-            contents =  productCart(user,lineId)
+        try:   
+            contents = {
+                    "type": "carousel",
+                    "contents": productCart(user,lineId) 
+            }   
             jsonFlex = {"response_type": "object"}
             jsonFlex["line_payload"] = [
                 {
