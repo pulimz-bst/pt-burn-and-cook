@@ -46,7 +46,20 @@ def check_user(username=None):
         return user_dict
     else:
         return False
- 
+
+@app.post("/checkout")
+async def productCheckout(data : productCart_request ): 
+    user = check_user(username=data.user)
+    if(user != False):
+        try: 
+            response =  productCheckout(user,data.lineId)
+            return response
+        except ValueError as e:
+            return {
+                'error_code':  str(e),
+            }
+    else:
+        return {"message": 'error', "User": data.user + "Not found !! "}
 
 @app.post("/productCart")
 async def productCart(data : productCart_request ): 
@@ -56,15 +69,67 @@ async def productCart(data : productCart_request ):
             response =  productCart(user,data.lineId)
             return response
         except ValueError as e:
-            return{
+            return {
                 'error_code':  str(e),
             }
     else:
-        return {"message": 'error', "User": data.user + "Not found !! "} 
+        return {"message": 'error', "User": data.user + "Not found !! "}
 
  
 
+def productCheckout(user, lineId):
+    today = date.today()
+    today = today.strftime("%Y-%m-%d")
+    googleSheetId = user['googleSheetId'] 
+    sheetName = 'orders'
+    url = 'https://docs.google.com/spreadsheets/d/{0}/gviz/tq?tqx=out:csv&sheet={1}'.format(
+        googleSheetId, sheetName)
+    df = pd.read_csv(url)  
 
+    if lineId is not None:
+        df = df.loc[df['lineId'] == str(lineId)]  
+
+    from libflex_pt import flexCart, flexCart_product 
+        
+    if not df.empty:
+        detail = []
+        data = {}
+        total = 0
+        items = 0
+        json_body = []
+        for index, row in df.iterrows():
+            content_product = flexCart_product(data=row)
+            detail.append(content_product)
+            total += row['price']
+            items += int(row['qty'])
+        data['total'] = total
+        data['items'] = items
+        data['date'] = today
+        data['lineId'] = lineId
+        content = flexCart(data=data, detail=detail)
+        json_body.append(content)
+    else:
+        json_body = []
+        content = {
+            "type": "bubble",
+            "body": {
+                "type": "box",
+                "layout": "vertical",
+                "spacing": "md",
+                "contents": [
+                    {
+                        "type": "text",
+                        "text": "ไม่พบการค้นหา",
+                        "wrap": True,
+                        "weight": "bold",
+                        "gravity": "center",
+                        "size": "xl"
+                    }
+                ]
+            }
+        }
+        json_body.append(content)
+    return json_body
 
 def productCart(user, lineId):
     today = date.today()
