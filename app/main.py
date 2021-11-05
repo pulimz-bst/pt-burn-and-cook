@@ -31,9 +31,7 @@ app = FastAPI()
   
 class productCart_request(BaseModel):
     user: str
-    lineId: str 
-
-
+    lineId: str  
 
 def check_user(username=None):
     db = {
