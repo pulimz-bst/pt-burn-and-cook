@@ -73,7 +73,7 @@ async def productCheckout(user: str, lineId: str ):
                 'error_code':  str(e),
             }
     else:
-        return {"message": 'error', "User": user + "Not found !! "}
+        return {"message": 'error', "User": user + "Not found !!  x"}
 
 @app.get("/productCart/{user}/{lineId}")
 async def productCart(user: str, lineId: str ): 
