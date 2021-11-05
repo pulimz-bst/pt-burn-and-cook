@@ -52,8 +52,20 @@ async def productCheckout(data : productCart_request ):
     user = check_user(username=data.user)
     if(user != False):
         try: 
-            response =  productCheckout(user,data.lineId)
-            return response
+            contents =  productCheckout(user,data.lineId) 
+            jsonFlex = {"response_type": "object"}
+            jsonFlex["line_payload"] = [
+                {
+                    "type": "flex",
+                    "altText": "ข้อมูล",
+                    "contents": contents
+                }
+            ]
+            headers = {
+                'Response-Type': 'object'
+            } 
+            content = {"message": "Hello World"} 
+            return JSONResponse(content=content, headers=headers) 
         except ValueError as e:
             return {
                 'error_code':  str(e),
@@ -66,8 +78,20 @@ async def productCart(data : productCart_request ):
     user = check_user(username=data.user)
     if(user != False):
         try: 
-            response =  productCart(user,data.lineId)
-            return response
+            contents =  productCart(user,data.lineId)
+            jsonFlex = {"response_type": "object"}
+            jsonFlex["line_payload"] = [
+                {
+                    "type": "flex",
+                    "altText": "ข้อมูล",
+                    "contents": contents
+                }
+            ]
+            headers = {
+                'Response-Type': 'object'
+            } 
+            content = {"message": "Hello World"} 
+            return JSONResponse(content=content, headers=headers) 
         except ValueError as e:
             return {
                 'error_code':  str(e),
