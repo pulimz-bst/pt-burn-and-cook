@@ -47,12 +47,12 @@ def check_user(username=None):
 
 
 
-@app.get("/checkout")
-async def productCheckout(data : productCart_request ): 
-    user = check_user(username=data.user)
+@app.get("/checkout/{user}/{lineId}")
+async def productCheckout(user: str, lineId: str ): 
+    user = check_user(username=user)
     if(user != False):
         try: 
-            contents =  productCheckout(user,data.lineId) 
+            contents =  productCheckout(user,lineId) 
             jsonFlex = {"response_type": "object"}
             jsonFlex["line_payload"] = [
                 {
@@ -63,22 +63,21 @@ async def productCheckout(data : productCart_request ):
             ]
             headers = {
                 'Response-Type': 'object'
-            } 
-            content = {"message": "Hello World"} 
-            return JSONResponse(content=content, headers=headers) 
+            }  
+            return JSONResponse(content=jsonFlex, headers=headers) 
         except ValueError as e:
             return {
                 'error_code':  str(e),
             }
     else:
-        return {"message": 'error', "User": data.user + "Not found !! "}
+        return {"message": 'error', "User": user + "Not found !! "}
 
-@app.get("/productCart")
-async def productCart(data : productCart_request ): 
-    user = check_user(username=data.user)
+@app.get("/productCart/{user}/{lineId}")
+async def productCart(user: str, lineId: str ): 
+    user = check_user(username=user)
     if(user != False):
         try: 
-            contents =  productCart(user,data.lineId)
+            contents =  productCart(user,lineId)
             jsonFlex = {"response_type": "object"}
             jsonFlex["line_payload"] = [
                 {
@@ -89,15 +88,14 @@ async def productCart(data : productCart_request ):
             ]
             headers = {
                 'Response-Type': 'object'
-            } 
-            content = {"message": "Hello World"} 
-            return JSONResponse(content=content, headers=headers) 
+            }  
+            return JSONResponse(content=jsonFlex, headers=headers) 
         except ValueError as e:
             return {
                 'error_code':  str(e),
             }
     else:
-        return {"message": 'error', "User": data.user + "Not found !! "}
+        return {"message": 'error', "User": user + "Not found !! "}
 
  
 
