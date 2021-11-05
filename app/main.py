@@ -62,11 +62,9 @@ async def productCart(data : productCart_request ):
     else:
         return {"message": 'error', "User": data.user + "Not found !! "} 
 
+ 
 
 
-
-
-        
 
 def productCart(user, lineId):
     today = date.today()
